@@ -19,9 +19,17 @@ def index(request):
 
 
 def home(request):
+<<<<<<< HEAD
     context = {'abc': hospital}
     return render(request, 'hospital/home.html', context)
 
 
 def about(request):
     return render(request, 'hospital/about.html', {'title': 'About Title'})
+=======
+    return HttpResponse('<h1>Home</h1>')
+
+
+def about(request):
+    return HttpResponse('<h1>About</h1>')
+>>>>>>> dfec2288c0a2f2ec75bfaeb0b329005efe40ad20
