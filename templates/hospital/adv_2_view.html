@@ -1,0 +1,15 @@
+{% extends 'hospital/base.html' %}
+{% block content %}
+    {% for post in abc %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.TITLE }}</a>
+            </div>
+            <h2><a class="article-title" href="#">{{ post.NAME }} {{ post.SURNAME }}</a></h2>
+            <p class="article-content">Salary      : {{ post.SALARY }}</p>
+            <p class="article-content">Is Max?     : {{ post.MAX_IN_TITLE }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

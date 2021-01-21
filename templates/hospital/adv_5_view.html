@@ -1,0 +1,19 @@
+{% extends 'hospital/base.html' %}
+{% block content %}
+    {% for post in abc %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">Visit Process</a>
+              <small class="text-muted">{{ post.PROCESS_NUMBER }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ post.SERVICE_NAME }}</a></h2>
+            <p class="article-content">Patient : {{ post.PATIENT_NAME }} {{ post.PATIENT_SURNAME }}</p>
+            <p class="article-content">Price : {{ post.PRICE }} PLN</p>
+            <p class="article-content">Diagnosis   : {{ post.DIAGNOSIS_NAME }}</p>
+            <p class="article-content">Doctor : {{ post.DOCTOR_NAME }} {{ post.DOCTOR_SURNAME }}</p>
+            <p class="article-content">Doctor Income : {{ post.DOCTOR_INCOME }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

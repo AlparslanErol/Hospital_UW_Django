@@ -1,0 +1,15 @@
+{% extends 'hospital/base.html' %}
+{% block content %}
+    {% for post in abc %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">Diagnosis for Youngest Female Patients</a>
+            </div>
+            <h2><a class="article-title" href="#">{{ post.DIAGNOSIS_NAME }}</a></h2>
+            <p class="article-content">Patient   : {{ post.PATIENT_NAME }} {{ post.PATIENT_SURNAME }}</p>
+            <p class="article-content">Birthday : {{ post.BIRTHDATE }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends 'hospital/base.html' %}
+{% block content %}
+    {% for post in abc %}
+        <article class="media content-section">
+          <div class="media-body">
+            <h2><a class="article-title" href="#">March 2020 Cost : {{ post.MARCH_2020_COST }} PLN</a></h2>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

@@ -29,6 +29,9 @@ def register(request):
             if int(member.usernumber) == user['ID'] and member.name == user['NAME'] and member.surname == user['SURNAME']:
                 member.save()
                 break
+            elif not(int(member.usernumber) == user['ID'] and member.name == user['NAME']
+                     and member.surname == user['SURNAME']) and user != temp[-1]:
+                continue
             else:
                 print('\n!!!!!! Wrong registration attempt from {} {} !!!!!!\n'.format(user['NAME'], user['SURNAME']))
                 context = {'msg': 'Your information and usernumber do not matched!'}
@@ -43,6 +46,9 @@ def login(request):
     request.session['patient_login'] = False
     request.session['doctor_login'] = False
     request.session['logged_in'] = False
+    request.session['ID'] = None
+    request.session['NAME'] = None
+    request.session['SURNAME'] = None
     return render(request, 'users/login.html')
 
 
@@ -64,6 +70,9 @@ def home(request):
 
     if request.method == 'POST':
         if member:
+            request.session['ID'] = member.usernumber
+            request.session['NAME'] = member.name
+            request.session['SURNAME'] = member.surname
             if member.is_admin():
                 print('Admin account has been logged in!')
                 request.session['admin_login'] = True

@@ -7,9 +7,13 @@
         <a href="{% url 'users-login' %}">Logout</a>
     </div>
     <div class="col-md-8">
+        <div class="form-group">
+            <label for="ID">Visit Process ID</label>
+            <input type="text" name="ID" class="form-control" required="required">
+        </div>
          <div class="form-group">
-            <label for="PHONE">PHONE</label>
-            <input type="text" name="PHONE" class="form-control" required="required"/>
+            <label for="DIAGNOSIS">New Diagnosis</label>
+            <input type="text" name="DIAGNOSIS" class="form-control" required="required"/>
         </div>
         <center><label class="text-danger">{{ msg }}</label></center>
         <br />
