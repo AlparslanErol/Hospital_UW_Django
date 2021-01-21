@@ -81,3 +81,9 @@ class VisitProcess(models.Model):
     class Meta:
         managed = False
         db_table = 'VISIT_PROCESS'
+
+
+def image_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/my_sell/picture/<filename>
+    return u'picture/{0}'.format(filename)
+

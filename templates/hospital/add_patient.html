@@ -1,0 +1,49 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="col-md-2">
+        <a href="{% url 'users-login' %}">Logout</a>
+    </div>
+    <div class="col-md-8">
+        <div class="form-group">
+            <label for="ID">ID</label>
+            <input type="text" name="ID" class="form-control" required="required">
+        </div>
+        <div class="form-group">
+            <label for="NAME">NAME</label>
+            <input type="text" name="NAME" class="form-control" required="required"/>
+{#            <input type="password" name="NAME" class="form-control" required="required"/>#}
+        </div>
+        <div class="form-group">
+            <label for="SURNAME">SURNAME</label>
+            <input type="text" name="SURNAME" class="form-control" required="required"/>
+        </div>
+        <div class="form-group">
+            <label for="GENDER">GENDER</label>
+            <input type="text" name="GENDER" class="form-control" required="required"/>
+        </div>
+        <div class="form-group">
+            <label for="BIRTHDATE">BIRTHDATE</label>
+            <input type="text" name="BIRTHDATE" class="form-control" required="required"/>
+        </div>
+        <div class="form-group">
+            <label for="EMAIL">EMAIL</label>
+            <input type="text" name="EMAIL" class="form-control" required="required"/>
+        </div>
+        <div class="form-group">
+            <label for="PHONE">PHONE</label>
+            <input type="text" name="PHONE" class="form-control" required="required"/>
+        </div>
+        <center><label class="text-danger">{{ msg }}</label></center>
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary form-control"><span class="glyphicon glyphicon-save"></span> Submit</button>
+        </div>
+    </div>
+    <div>
+        <img src="{% static "picture/login.jpg" %}" alt="deneme" style="width:760px;height:300px">
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'hospital/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-md-30" xmlns:width="http://www.w3.org/1999/xhtml"></div>
+    <div class="col-md-30 well" style="background-color: #fac403; text-align: center; justify-content: center">
+        <h1 class="text-primary">Django Hospital</h1>
+        <h1 class="text-primary">University of Warsaw Branch</h1>
+        <hr style="border-top:1px dotted #000;"/>
+    </div>
+    <div class="col-md-10" style="text-align: center; justify-content: center">
+        <h1>{{ member.name }} {{ member.surname }} Welcome to home!</h1>
+    </div>
+    <div>
+        <div class="col-md-4">
+            <a href="{% url 'hospital-doctor' %}">
+                <img src="{% static "picture/c.jpg" %}" alt="deneme" style="width:720px;height:500px">
+            </a>
+        </div>
+    </div>
+
+{% endblock content %}

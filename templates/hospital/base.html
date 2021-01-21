@@ -29,13 +29,19 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{% url 'hospital-home' %}">Home</a>
-              <a class="nav-item nav-link" href="{% url 'hospital-about' %}">About</a>
+
+              <a class="nav-item nav-link" href="{% url 'hospital-doctor' %}">Doctor</a>
+              <a class="nav-item nav-link" href="{% url 'hospital-patient' %}">Patient</a>
+              <a class="nav-item nav-link" href="{% url 'hospital-visit' %}">Visit</a>
+              <a class="nav-item nav-link" href="{% url 'hospital-v-process' %}">Visit Process</a>
+              <a class="nav-item nav-link" href="{% url 'hospital-diagnosis' %}">Diagnosis</a>
+              <a class="nav-item nav-link" href="{% url 'hospital-service' %}">Service</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="#">Login</a>
-              <a class="nav-item nav-link" href="#">Register</a>
+              <a class="nav-item nav-link" href="{% url 'hospital-home' %}">Hospital</a>
+              <a class="nav-item nav-link" href="{% url 'hospital-about' %}">About</a>
+              <a class="nav-item nav-link" href="{% url 'users-login' %}">Logout</a>
             </div>
           </div>
         </div>
@@ -44,17 +50,45 @@
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
-          {% block content %}{% endblock %}
+            {% block content %}{% endblock %}
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
+            <h3>Hospital Add</h3>
+            <p class='text-muted'>You can reach useful links about hospital.
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
+                <a class="nav-item nav-link" href="{% url 'hospital-doctor-add' %}">Doctor Add</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-patient-add' %}">Patient Add</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-visit' %}">Visit Add</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-v-process' %}">Visit Process Add</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-diagnosis' %}">Diagnosis Add</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-service' %}">Service Add</a>
+              </ul>
+            </p>
+          </div>
+          <div class="content-section">
+            <h3>Hospital Update</h3>
+            <p class='text-muted'>You can reach useful links about hospital.
+              <ul class="list-group">
+                <a class="nav-item nav-link" href="{% url 'hospital-doctor-add' %}">Doctor</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-patient' %}">Patient</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-visit' %}">Visit</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-v-process' %}">Visit Process</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-diagnosis' %}">Diagnosis</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-service' %}">Service</a>
+              </ul>
+            </p>
+          </div>
+          <div class="content-section">
+            <h3>Hospital Delete</h3>
+            <p class='text-muted'>You can reach useful links about hospital.
+              <ul class="list-group">
+                <a class="nav-item nav-link" href="{% url 'hospital-doctor-add' %}">Doctor</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-patient' %}">Patient</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-visit' %}">Visit</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-v-process' %}">Visit Process</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-diagnosis' %}">Diagnosis</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-service' %}">Service</a>
               </ul>
             </p>
           </div>

@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from hospital import views
+from .settings import MEDIA_URL, MEDIA_ROOT, DEBUG
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
+    # path('', views.index),
     path('hospital/', include('hospital.urls')),
-]
+    path('', include('users.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
