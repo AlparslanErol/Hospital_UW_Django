@@ -145,7 +145,7 @@ def visit(request):
         context = {
             'abc': temp
         }
-        return render(request, 'hospital/view.html', context)
+        return render(request, 'hospital/visit_view.html', context)
     else:
         context = {'msg': 'You have to log in first!'}
         return render(request, 'users/login.html', context)
@@ -197,9 +197,10 @@ def add_doctor(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
         cur = con.cursor()
-        cur.execute("""insert into doctor values (:id,:name,:surname,:dept,NULL,NULL,NULL,NULL,NULL)""",
+        cur.execute("""insert into doctor values (:id,:name,:surname,:dept,:title,:email,:phone,:salary,:off_day)""",
                     {'id': request.POST['ID'], 'name': request.POST['NAME'], 'surname': request.POST['SURNAME'],
-                     'dept': request.POST['DEPARTMENT']})
+                     'dept': request.POST['DEPARTMENT'],'title': request.POST['TITLE'], 'email': request.POST['EMAIL'], 'phone': request.POST['PHONE'],
+                     'salary': request.POST['SALARY'], 'off_day': request.POST['OFF_DAY']})
         con.commit()
         cur.close()
 
@@ -214,11 +215,222 @@ def add_patient(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
         cur = con.cursor()
-        cur.execute("""insert into patient values (:id,:name,:surname,NULL,NULL,NULL,NULL)""",
-                    {'id': request.POST['ID'], 'name': request.POST['NAME'], 'surname': request.POST['SURNAME']})
+        cur.execute("""insert into patient values (:id,:name,:surname,:gender,:birthdate,:email,:phone)""",
+                    {'id': request.POST['ID'], 'name': request.POST['NAME'], 'surname': request.POST['SURNAME'],
+                     'gender': request.POST['GENDER'], 'birthdate': request.POST['BIRTHDATE'], 'email': request.POST['EMAIL'], 'phone': request.POST['PHONE']})
         con.commit()
         cur.close()
 
         return render(request, 'hospital/home.html')
     else:
         return render(request, 'hospital/add_patient.html')
+
+
+@adm_login
+def add_visit(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""insert into visit values (:id,:doctor_id,:patient_id,:type,:date,:state)""",
+                    {'id': request.POST['ID'], 'doctor_id': request.POST['DOCTOR_ID'], 'patient_id': request.POST['PATIENT_ID'],
+                     'type': request.POST['TYPE'], 'date': request.POST['DATE'], 'state': request.POST['STATE']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/add_visit.html')
+
+
+@adm_doc_login
+def add_visit_process(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""insert into visit_process values (:id,:visit_id,:service_id,:diagnosis_id,:process_date,)""",
+                    {'id': request.POST['ID'], 'visit_id': request.POST['VISIT_ID'], 'service_id': request.POST['SERVICE_ID'],
+                     'diagnosis_id': request.POST['DIAGNOSIS_ID'], 'process_date': request.POST['PROCESS_DATE']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/add_visit_process.html')
+
+
+@all_login
+def add_diagnosis(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        for i in request.POST:
+            print(i)
+        cur.execute("""insert into diagnosis values (:id,:name)""",
+                    {'id': request.POST['ID'], 'name': request.POST['NAME']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/add_diagnosis.html')
+
+
+@all_login
+def add_service(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""insert into service values (:id,:name,:unit_price,:quantity)""",
+                    {'id': request.POST['ID'], 'name': request.POST['NAME'], 'unit_price': request.POST['UNIT_PRICE'],
+                     'quantity': request.POST['QUANTITY']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/add_service.html')
+
+
+@adm_login
+def delete_doctor(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""delete from doctor where id = :num""",
+                    {'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/delete_doctor.html')
+
+
+@adm_login
+def delete_patient(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""delete from patient where id = :num""",
+                    {'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/delete_patient.html')
+
+
+@adm_login
+def delete_visit(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""delete from visit where id = :num""",
+                    {'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/delete_visit.html')
+
+
+@adm_login
+def delete_visit_process(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""delete from visit_process where id = :num""",
+                    {'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/delete_visit_process.html')
+
+
+@adm_login
+def delete_diagnosis(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""delete from diagnosis where id = :num""",
+                    {'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/delete_diagnosis.html')
+
+
+@adm_login
+def delete_service(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""delete from service where id = :num""",
+                    {'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/delete_service.html')
+
+
+@all_login
+def update_doctor(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""update doctor set off_day = :day where id = :num""",
+                    {'day': request.POST['OFF_DAY'], 'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/update_doctor.html')
+
+
+def update_patients(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""update patient set phone = :phone where id = :num""",
+                    {'phone': request.POST['PHONE'], 'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/update_patient.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+

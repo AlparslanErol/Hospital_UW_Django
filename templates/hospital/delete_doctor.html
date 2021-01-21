@@ -1,0 +1,25 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="col-md-2">
+        <a href="{% url 'users-login' %}">Logout</a>
+    </div>
+    <div class="col-md-8">
+        <div class="form-group">
+            <label for="ID">ID</label>
+            <input type="text" name="ID" class="form-control" required="required">
+        </div>
+
+        <center><label class="text-danger">{{ msg }}</label></center>
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary form-control"><span class="glyphicon glyphicon-save"></span> Submit</button>
+        </div>
+    </div>
+    <div>
+        <img src="{% static "picture/login.jpg" %}" alt="deneme" style="width:760px;height:300px">
+    </div>
+</form>
+{% endblock %}
