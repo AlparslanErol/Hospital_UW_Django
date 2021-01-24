@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 import sqlite3
+from matplotlib import pyplot as plt
 
 
 # Only Admin Access
@@ -452,6 +453,34 @@ def results(request):
             'abc': temp
         }
         return render(request, 'hospital/result_view.html', context)
+    else:
+        context = {'msg': 'You have to log in first!'}
+        return render(request, 'users/login.html', context)
+
+
+@adm_doc_login
+def stats(request):
+    if is_logged_in(request):
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute(""" select gender, count(id)
+                        from patient
+                        group by gender;""")
+        temp = cur.fetchall()
+        new_dict = {}
+        for stat in temp:
+            new_dict[stat['GENDER']] = stat['count(id)']
+        print(new_dict)
+        # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+        explode = (0, 0.1)  # only "explode" the 2nd slice (i.e. 'Hogs')
+        fig1, ax1 = plt.subplots()
+        ax1.pie(new_dict.values(), explode=explode, labels=new_dict.keys(), autopct='%1.1f%%',
+                shadow=True, startangle=90)
+        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        plt.savefig('hospital/static/picture/piechart.png', dpi=100)
+
+        return render(request, 'hospital/piechart.html')
     else:
         context = {'msg': 'You have to log in first!'}
         return render(request, 'users/login.html', context)

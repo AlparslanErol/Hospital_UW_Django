@@ -1,8 +1,11 @@
 {% extends 'hospital/base.html' %}
 {% load static %}
 {% block content %}
-    <h1>Hospital About!</h1>
+    <div class="col-md-30 well" style="background-color: #fac403; text-align: center; justify-content: center">
+         <h1>Hospital UW About!</h1>
+        <hr style="border-top:1px dotted #000;"/>
+    </div>
     <div class="col-md-4">
-        <img src="{% static "picture/c.jpg" %}" alt="deneme">
+        <img src="{% static "picture/about.jpg" %}" alt="deneme" style="width:720px;height:400px">
     </div>
 {% endblock content %}

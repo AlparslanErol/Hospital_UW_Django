@@ -12,8 +12,39 @@ def dict_factory(cursor, row):
     return d
 
 
+def password_check(passwd):
+    SpecialSym = ['$', '@', '#', '%', '.', ',']
+    val = True
+
+    if len(passwd) < 6:
+        print('length should be at least 6')
+        val = False
+
+    if len(passwd) > 20:
+        print('length should be not be greater than 20')
+        val = False
+
+    if not any(char.isdigit() for char in passwd):
+        print('Password should have at least one numeral')
+        val = False
+
+    if not any(char.isupper() for char in passwd):
+        print('Password should have at least one uppercase letter')
+        val = False
+
+    if not any(char.islower() for char in passwd):
+        print('Password should have at least one lowercase letter')
+        val = False
+
+    if not any(char in SpecialSym for char in passwd):
+        print('Password should have at least one of the symbols $@#')
+        val = False
+    if val:
+        return val
+
+
 def register(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and password_check(request.POST['password']):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
         cur = con.cursor()
@@ -38,7 +69,12 @@ def register(request):
                 return render(request, 'users/register.html', context)
         return redirect('/')
     else:
-        return render(request, 'users/register.html')
+        context = {'msg':  'Password... \
+                            Should have at least one number. \
+                            Should have at least one uppercase and one lowercase character.\
+                            Should have at least one special symbol.\
+                            Should be between 6 to 20 characters long.!'}
+        return render(request, 'users/register.html', context)
 
 
 def login(request):

@@ -1,29 +1,22 @@
 {% extends 'hospital/base.html' %}
 {% load static %}
 {% block content %}
-{#    {% if member.is_doctor %}#}
-{#        <div class="col-md-30" xmlns:width="http://www.w3.org/1999/xhtml"></div>#}
-{#        <div class="col-md-30 well" style="background-color: #fac403; text-align: center; justify-content: center">#}
-{#            <h1 class="text-primary">Django Hospital</h1>#}
-{#            <h1 class="text-primary">University of Warsaw Branch</h1>#}
-{#            <hr style="border-top:1px dotted #000;"/>#}
-{#        </div>#}
-{#        <div>#}
-{#            <div class="col-md-4">#}
-{#                <img src="{% static "picture/c.jpg" %}" alt="deneme" style="width:720px;height:500px">#}
-{#            </div>#}
-{#        </div>        #}
-{#    {% endif %}#}
 
     <div class="col-md-30" xmlns:width="http://www.w3.org/1999/xhtml"></div>
     <div class="col-md-30 well" style="background-color: #fac403; text-align: center; justify-content: center">
-        <h1 class="text-primary">Django Hospital</h1>
-        <h1 class="text-primary">University of Warsaw Branch</h1>
+        <h1 class="text-primary">Hospital UW</h1>
         <hr style="border-top:1px dotted #000;"/>
     </div>
     <div>
         <div class="col-md-4">
-            <img src="{% static "picture/c.jpg" %}" alt="deneme" style="width:720px;height:500px">
+            <img src="{% static "picture/c.jpg" %}" alt="deneme" style="width:720px;height:400px">
+        </div>
+        <div class="col-md-12">
+            <h4><a class="article-title">...</a></h4>
+            <h4><a class="article-title">Here in the link below you can access statistics for Hospital UW.</a></h4>
+            <a href="{% url 'hospital-stats' %}">
+                <img src="{% static "picture/stat.png" %}" alt="deneme" style="width:400px;height:400px">
+            </a>
         </div>
     </div>
 

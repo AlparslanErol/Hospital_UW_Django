@@ -1,0 +1,16 @@
+{% extends 'hospital/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-md-30 well" style="background-color: #fac403; text-align: center; justify-content: center">
+         <h1>Hospital UW Statistics!</h1>
+        <hr style="border-top:1px dotted #000;"/>
+    </div>
+    <div class="col-md-12">
+        <h2><a class="article-title">1. Patient Gender Distribution Pie-Chart</a></h2>
+        <img src="{% static "picture/piechart.png" %}" alt="deneme" style="width:720px;height:400px">
+    </div>
+    <div class="col-md-12">
+        <h2><a class="article-title">2. Stat second</a></h2>
+        <img src="{% static "picture/piechart.png" %}" alt="deneme" style="width:720px;height:400px">
+    </div>
+{% endblock content %}
