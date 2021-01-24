@@ -7,6 +7,11 @@ from matplotlib import pyplot as plt
 
 # Only Admin Access
 def adm_login(func):
+    """
+    This method is used to give authentication for only admin accounts
+    :param func:
+    :return:
+    """
     def inner(request):
         if request.session['admin_login'] and request.session['logged_in']:
             return func(request)
@@ -20,6 +25,11 @@ def adm_login(func):
 
 # Admin + Doctor Access
 def adm_doc_login(func):
+    """
+    This method is used to give authentication for admin and doctor accounts
+    :param func:
+    :return:
+    """
     def inner(request):
         if (request.session['admin_login'] or request.session['doctor_login']) and request.session['logged_in']:
             return func(request)
@@ -33,6 +43,11 @@ def adm_doc_login(func):
 
 # Admin + Patient Access
 def adm_pat_login(func):
+    """
+    This method is used to give authentication for admin and patient accounts
+    :param func:
+    :return:
+    """
     def inner(request):
         if (request.session['patient_login'] or request.session['admin_login']) and request.session['logged_in']:
             return func(request)
@@ -46,6 +61,11 @@ def adm_pat_login(func):
 
 # Admin + Doctor + Patient Access
 def all_login(func):
+    """
+    This method is used to give authentication for all type of accounts
+    :param func:
+    :return:
+    """
     def inner(request):
         if (request.session['patient_login'] or request.session['admin_login'] or request.session['doctor_login']) \
                 and request.session['logged_in']:
@@ -59,6 +79,12 @@ def all_login(func):
 
 
 def dict_factory(cursor, row):
+    """
+    This method is used to convert tuple output from cursor to dictionary.
+    :param cursor:
+    :param row:
+    :return:
+    """
     d = {}
     for idx, col in enumerate(cursor.description):
         d[col[0]] = row[idx]
@@ -66,11 +92,23 @@ def dict_factory(cursor, row):
 
 
 def is_logged_in(request):
+    """
+    This method is used to check if user logged in or not.
+    :param request:
+    :return:
+    """
     return request.session['logged_in'] == True
 
 
 @all_login
 def diagnosis(request):
+    """
+    In this method, diagnosis table is viewing via database connection.
+    Query Explanation:
+    This query is take all data from diagnosis table.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -89,6 +127,13 @@ def diagnosis(request):
 
 @adm_doc_login
 def doctor(request):
+    """
+    In this method, doctor table is viewing via database connection.
+    Query Explanation:
+    This query is take all data from doctor table.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -107,6 +152,13 @@ def doctor(request):
 
 @adm_doc_login
 def patient(request):
+    """
+    In this method, patient table is viewing via database connection.
+    Query Explanation:
+    This query is take all data from patient table.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -124,6 +176,13 @@ def patient(request):
 
 @all_login
 def service(request):
+    """
+    In this method, service table is viewing via database connection.
+    Query Explanation:
+    This query is take all data from service table.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -141,6 +200,13 @@ def service(request):
 
 @adm_doc_login
 def visit(request):
+    """
+    In this method, visit table is viewing via database connection.
+    Query Explanation:
+    This query is take all data from visit table.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -158,6 +224,13 @@ def visit(request):
 
 @adm_doc_login
 def visit_process(request):
+    """
+    In this method, visit_process table is viewing via database connection.
+    Query Explanation:
+    This query is take all data from visit_process table.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -175,6 +248,14 @@ def visit_process(request):
 
 @adm_doc_login
 def salary(request):
+    """
+    In this method, a view created to show salary information from database.
+    Query Explanation:
+    If user is a doctor, query only gives result for this doctor salary.
+    If user is an admin, query only gives all doctor's salary information.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -196,6 +277,13 @@ def salary(request):
 
 @adm_login
 def adv_1(request):
+    """
+    In this method, a view created to show advanced sql queries from database.
+    Query Explanation:
+    Select average salary for every doctor title with count of visit process diagnosis is cancer greater than 2.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -226,6 +314,14 @@ def adv_1(request):
 
 @adm_login
 def adv_2(request):
+    """
+    In this method, a view created to show advanced sql queries from database.
+    Query Explanation:
+    Select doctors who have maximum salary in each title and show them with additional column and put '*' sign,
+    otherwise ' '
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -266,6 +362,14 @@ def adv_2(request):
 
 @adm_login
 def adv_3(request):
+    """
+    In this method, a view created to show advanced sql queries from database.
+    Query Explanation:
+    Select patients whose names are not include ‘e’ or select patients who have visit type as 'inpatient' or
+    select male patients who have and have doctor with salary greater than 5000.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -308,6 +412,13 @@ def adv_3(request):
 
 @adm_login
 def adv_4(request):
+    """
+    In this method, a view created to show advanced sql queries from database.
+    Query Explanation:
+    Select total service cost in March 2020.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -329,6 +440,14 @@ def adv_4(request):
 
 @adm_login
 def adv_5(request):
+    """
+    In this method, a view created to show advanced sql queries from database.
+    Query Explanation:
+    Select visit processes and information about patients who use service unit price greater than 100 with
+    yearly income of their doctors who has professor title.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -367,6 +486,13 @@ def adv_5(request):
 
 @adm_login
 def adv_6(request):
+    """
+    In this method, a view created to show advanced sql queries from database.
+    Query Explanation:
+    Select all each diagnosis for youngest female patients.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -403,6 +529,15 @@ def adv_6(request):
 
 @all_login
 def results(request):
+    """
+    In this method, a view created to show results of patient's ongoing visit processes from database.
+    If user is a patient, user can only observe his/her results.
+    Else, user can see all visit processes results.
+    Query Explanation:
+    Select all each diagnosis for youngest female patients.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -460,6 +595,18 @@ def results(request):
 
 @adm_doc_login
 def stats(request):
+    """
+    In this method, there are several sql queries to visualize the statistics about hospital with python matplotlib package.
+    1. Count patients for each gender in patient table.
+    2. Count doctors for each department in doctor table.
+    3. Count doctors for each title in doctor table.
+    4. Count visit processes for each diagnosis in visit process table.
+    5. Count visit processes for each date in visit process table.
+    Query Explanation:
+    Select all each diagnosis for youngest female patients.
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -559,12 +706,12 @@ def stats(request):
 
 
 @all_login
-def index(request):
-    return HttpResponse('<h1>Index</h1>')
-
-
-@all_login
 def home(request):
+    """
+    This method is used to show home page based on base.html
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         return render(request, 'hospital/home.html', {'title': 'About Title'})
     else:
@@ -574,6 +721,11 @@ def home(request):
 
 @all_login
 def about(request):
+    """
+    This method is used to show about page based on base.html
+    :param request:
+    :return:
+    """
     if is_logged_in(request):
         return render(request, 'hospital/about.html', {'title': 'About Title'})
     else:
@@ -583,6 +735,13 @@ def about(request):
 
 @adm_login
 def add_doctor(request):
+    """
+    This method is used to add doctor in doctor table.
+    Query Explanation:
+    - Insert data in doctor table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -602,6 +761,13 @@ def add_doctor(request):
 
 @adm_login
 def add_patient(request):
+    """
+    This method is used to add patient in patient table.
+    Query Explanation:
+    - Insert data in patient table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -620,6 +786,13 @@ def add_patient(request):
 
 @adm_login
 def add_visit(request):
+    """
+    This method is used to add visit in visit table.
+    Query Explanation:
+    - Insert data in visit table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -638,6 +811,13 @@ def add_visit(request):
 
 @adm_login
 def add_visit_process(request):
+    """
+    This method is used to add visit_process in visit_process table.
+    Query Explanation:
+    - Insert data in visit_process table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -656,6 +836,13 @@ def add_visit_process(request):
 
 @adm_login
 def add_diagnosis(request):
+    """
+    This method is used to add diagnosis in diagnosis table.
+    Query Explanation:
+    - Insert data in diagnosis table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -674,6 +861,13 @@ def add_diagnosis(request):
 
 @adm_login
 def add_service(request):
+    """
+    This method is used to add service in service table.
+    Query Explanation:
+    - Insert data in service table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -691,6 +885,13 @@ def add_service(request):
 
 @adm_login
 def delete_doctor(request):
+    """
+    This method is used to delete doctor data in doctor table.
+    Query Explanation:
+    - Delete data in doctor table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -707,6 +908,13 @@ def delete_doctor(request):
 
 @adm_login
 def delete_patient(request):
+    """
+    This method is used to delete patient data in patient table.
+    Query Explanation:
+    - Delete data in patient table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -723,6 +931,13 @@ def delete_patient(request):
 
 @adm_login
 def delete_visit(request):
+    """
+    This method is used to delete visit data in visit table.
+    Query Explanation:
+    - Delete data in visit table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -739,6 +954,13 @@ def delete_visit(request):
 
 @adm_login
 def delete_visit_process(request):
+    """
+    This method is used to delete visit_process data in visit_process table.
+    Query Explanation:
+    - Delete data in visit_process table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -755,6 +977,13 @@ def delete_visit_process(request):
 
 @adm_login
 def delete_diagnosis(request):
+    """
+    This method is used to delete diagnosis data in diagnosis table.
+    Query Explanation:
+    - Delete data in diagnosis table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -771,6 +1000,13 @@ def delete_diagnosis(request):
 
 @adm_login
 def delete_service(request):
+    """
+    This method is used to delete service data in service table.
+    Query Explanation:
+    - Delete data in service table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -787,6 +1023,14 @@ def delete_service(request):
 
 @adm_doc_login
 def update_doctor(request):
+    """
+    This method is used to update doctor off day.
+    Query Explanation:
+    If user is a doctor, his/her usernumber keep in the session and doctor just write which day he/she wants to update.
+    This query has been written to to update off_day in doctor table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -803,6 +1047,14 @@ def update_doctor(request):
 
 @adm_pat_login
 def update_patients(request):
+    """
+    This method is used to update patient phone number.
+    Query Explanation:
+    If user is a patient, his/her usernumber keep in the session and patient just write phone number that  he/she wants to update.
+    This query has been written to to update phone in patient table.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -819,6 +1071,22 @@ def update_patients(request):
 
 @adm_doc_login
 def update_visit_process(request):
+    """
+    This method is used to update visit_process diagnosis number.
+    Query Explanation:
+    If user is a doctor, his/her usernumber keep in the session and doctor only eliglible to update his/her patient's diagnosis no for other doctor's patients.
+    First query is to have visit process id for user doctor.
+    Second query updates the diagnosis id in visit process table.
+    If user is an admin, admin can update the table anyway.
+
+    This method is also important that, it check the all diagnosis for each visit id and if all processes are done,
+    State feature in Visit table has been updated automatically without any interrupt.
+    First query is to count the diagnosis id for each visit
+    Second query is to count the diagnosis id for each visit for diagnosis_id not equal to zero.
+    If these two query results are equal, then visit table has been updated if not, no update.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -863,6 +1131,14 @@ def update_visit_process(request):
 
 @adm_login
 def update_salary(request):
+    """
+    This method is used to update salary feature in doctor table.
+    Only admin account have access.
+    Query Explanation:
+    This query is used to update salary for given id number.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -879,6 +1155,14 @@ def update_salary(request):
 
 @adm_login
 def update_service(request):
+    """
+    This method is used to update price feature in service table.
+    Only admin account have access.
+    Query Explanation:
+    This query is used to update price for given id number.
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory

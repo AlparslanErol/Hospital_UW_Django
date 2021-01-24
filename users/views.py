@@ -58,7 +58,15 @@ def password_check(passwd):
 def register(request):
     """
     This method is for registration. Select id, name and surname of doctor and patient table and check their information
-    If their id and informations are not matched, system gives an error to register the system.
+    If their id and information are not matched, system gives an error to register the system.
+    Also to register system there are some restriction:
+    Password...
+    - Should have at least one number.
+    - Should have at least one uppercase and one lowercase character.
+    - Should have at least one special symbol.
+    - Should be between 6 to 20 characters long.!
+    Query Explanation:
+    This query is to have id, name and surname data from doctor and patient.
     :param request:
     :return:
     """

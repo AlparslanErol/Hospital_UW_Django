@@ -15,6 +15,13 @@
                 <img src="{% static "picture/c.jpg" %}" alt="deneme" style="width:720px;height:500px">
             </a>
         </div>
+        <div class="col-md-12">
+            <h4><a class="article-title">...</a></h4>
+            <h4><a class="article-title">Here in the link below you can access statistics for Hospital UW.</a></h4>
+            <a href="{% url 'hospital-stats' %}">
+                <img src="{% static "picture/stat.png" %}" alt="deneme" style="width:400px;height:400px">
+            </a>
+        </div>
     </div>
 
 {% endblock content %}
