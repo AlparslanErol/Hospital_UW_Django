@@ -6,6 +6,12 @@ import sqlite3
 
 
 def dict_factory(cursor, row):
+    """
+    This method is used to convert tuple type to dict after execute SQL queries in python.
+    :param cursor:
+    :param row:
+    :return:
+    """
     d = {}
     for idx, col in enumerate(cursor.description):
         d[col[0]] = row[idx]
@@ -13,6 +19,12 @@ def dict_factory(cursor, row):
 
 
 def password_check(passwd):
+    """
+    Taken from geeksforgeeks.org/password-validation-in-python/
+    This method is used to restrict password for registration process.
+    :param passwd:
+    :return:
+    """
     SpecialSym = ['$', '@', '#', '%', '.', ',']
     val = True
 
@@ -44,6 +56,12 @@ def password_check(passwd):
 
 
 def register(request):
+    """
+    This method is for registration. Select id, name and surname of doctor and patient table and check their information
+    If their id and informations are not matched, system gives an error to register the system.
+    :param request:
+    :return:
+    """
     if request.method == 'POST' and password_check(request.POST['password']):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
@@ -78,6 +96,11 @@ def register(request):
 
 
 def login(request):
+    """
+    For each login screen observe session parameters are given default values.
+    :param request:
+    :return:
+    """
     request.session['admin_login'] = False
     request.session['patient_login'] = False
     request.session['doctor_login'] = False
@@ -89,6 +112,15 @@ def login(request):
 
 
 def home(request):
+    """
+    This method is use for after login credentials checked and user able to log into system,
+    it method redirect the user to the home page with his/her name.
+    Admin, doctor and patient session user parameters are updated after login process.
+    with request.session['--'] parameter, we can keep who using the system in current time period and keep its log
+    into the root file `logs.txt`
+    :param request:
+    :return:
+    """
     try:
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory

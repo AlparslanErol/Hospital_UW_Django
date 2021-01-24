@@ -4,12 +4,9 @@
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.TITLE }} {{ post.DEPARTMENT }}</a>
-              <small class="text-muted">{{ post.ID }}</small>
+              <a class="mr-2" href="#"> ID : {{ post.ID }}</a>
             </div>
-
-            <p class="article-content">ID : {{ post.ID }}</p>
-            <p class="article-content"> NAME   : {{ post.NAME }}</p>
+            <h4><a class="article-title" >{{ post.NAME }}</a></h4>
           </div>
         </article>
     {% endfor %}

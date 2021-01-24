@@ -464,6 +464,8 @@ def stats(request):
         con = sqlite3.connect("Hospital.db")
         con.row_factory = dict_factory
         cur = con.cursor()
+
+        # STAT 1
         cur.execute(""" select gender, count(id)
                         from patient
                         group by gender;""")
@@ -471,7 +473,6 @@ def stats(request):
         new_dict = {}
         for stat in temp:
             new_dict[stat['GENDER']] = stat['count(id)']
-        print(new_dict)
         # Pie chart, where the slices will be ordered and plotted counter-clockwise:
         explode = (0, 0.1)  # only "explode" the 2nd slice (i.e. 'Hogs')
         fig1, ax1 = plt.subplots()
@@ -479,6 +480,77 @@ def stats(request):
                 shadow=True, startangle=90)
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
         plt.savefig('hospital/static/picture/piechart.png', dpi=100)
+
+        # STAT 2
+        cur.execute(""" select department, count(id) 
+                        from doctor
+                        group by department;""")
+        temp = cur.fetchall()
+        new_dict = {}
+        for stat in temp:
+            new_dict[stat['DEPARTMENT']] = stat['count(id)']
+        # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+        explode = (0, 0.1, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+        fig1, ax1 = plt.subplots()
+        ax1.pie(new_dict.values(), explode=explode, labels=new_dict.keys(), autopct='%1.1f%%',
+                shadow=True, startangle=90)
+        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        plt.savefig('hospital/static/picture/piechart_dept.png', dpi=100)
+
+        # STAT 3
+        cur.execute(""" select title, count(id) 
+                        from doctor
+                        group by title;""")
+        temp = cur.fetchall()
+        new_dict = {}
+        for stat in temp:
+            new_dict[stat['TITLE']] = stat['count(id)']
+        # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+        explode = (0, 0.1, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+        fig1, ax1 = plt.subplots()
+        ax1.pie(new_dict.values(), explode=explode, labels=new_dict.keys(), autopct='%1.1f%%',
+                shadow=True, startangle=90)
+        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        plt.savefig('hospital/static/picture/piechart_title.png', dpi=100)
+
+        # STAT 4
+        cur.execute(""" SELECT D.NAME, COUNT(VP.ID)
+                        FROM VISIT_PROCESS VP, DIAGNOSIS D
+                        WHERE VP.DIAGNOSIS_ID = D.ID
+                        GROUP BY DIAGNOSIS_ID;""")
+        temp = cur.fetchall()
+        print(temp)
+        new_dict = {}
+        for stat in temp:
+            new_dict[stat['NAME']] = stat['COUNT(VP.ID)']
+        # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+        explode = (0, 0.1, 0, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+        fig1, ax1 = plt.subplots()
+        ax1.pie(new_dict.values(), explode=explode, labels=new_dict.keys(), autopct='%1.1f%%',
+                shadow=True, startangle=90)
+        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        plt.savefig('hospital/static/picture/piechart_diagnosis.png', dpi=100)
+
+        # STAT 5
+        cur.execute(""" SELECT PROCESS_DATE, COUNT(ID)
+                        FROM VISIT_PROCESS
+                        GROUP BY PROCESS_DATE;""")
+        temp = cur.fetchall()
+        print(temp)
+        new_dict = {}
+        for stat in temp:
+            new_dict[stat['PROCESS_DATE']] = stat['COUNT(ID)']
+
+        fig, ax = plt.subplots(figsize=(10, 10))
+        ax.bar(new_dict.keys(),
+               new_dict.values(),
+               color='purple')
+
+        ax.set(xlabel="Date",
+               ylabel="Process Count",
+               title="Daily Total Process\nHospital UW, Warsaw.")
+        plt.setp(ax.get_xticklabels(), rotation=45)
+        plt.savefig('hospital/static/picture/bar_date_count.png', dpi=200)
 
         return render(request, 'hospital/piechart.html')
     else:

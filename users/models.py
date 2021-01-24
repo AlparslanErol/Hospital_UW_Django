@@ -7,6 +7,9 @@ class Member(models.Model):
     usernumber = models.CharField(max_length=4)
     password = models.CharField(max_length=12)
 
+    """
+    The following methods are used to set if user has been logged into the system and what is the type of user.
+    """
     def is_doctor(self):
         if self.usernumber.startswith('1'):
             return True
