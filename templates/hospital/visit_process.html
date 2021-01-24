@@ -4,14 +4,11 @@
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.PATIENT_ID }} {{ post.TYPE }}</a>
-              <small class="text-muted">{{ post.ID }}</small>
+              <a class="mr-2" href="#">Visit process id : {{ post.ID }}</a>
             </div>
-            <h2><a class="article-title" href="#">{{ post.DOCTOR_ID }} {{ post.PATIENT_ID }}</a></h2>
-            <p class="article-content">Type  : {{ post.TYPE }}</p>
-            <p class="article-content">Date   : {{ post.DATE }}</p>
-            <p class="article-content">State  : {{ post.STATE }} PLN</p>
-
+              <h2><a class="article-title" href="#">Visit id  : {{ post.VISIT_ID }}</a></h2>
+              <h2><a class="article-title" href="#">diagnosis id : {{ post.DIAGNOSIS_ID }}</a></h2>
+            <p class="article-content">Process Date  : {{ post.PROCESS_DATE }}</p>
           </div>
         </article>
     {% endfor %}
