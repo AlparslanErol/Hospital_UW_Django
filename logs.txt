@@ -1,0 +1,32 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 24, 2021 - 19:48:07
+Django version 3.1.5, using settings 'hospital_app.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+Admin account has been logged in!
+Admin account has been logged in!
+[{'NAME': 'UNKNOWN', 'COUNT(VP.ID)': 1}, {'NAME': 'CANCER', 'COUNT(VP.ID)': 2}, {'NAME': 'COVID-19', 'COUNT(VP.ID)': 1}, {'NAME': 'CALCULARY', 'COUNT(VP.ID)': 1}, {'NAME': 'INFECTION', 'COUNT(VP.ID)': 1}]
+[{'PROCESS_DATE': '2020-03-17', 'COUNT(ID)': 1}, {'PROCESS_DATE': '2020-03-18', 'COUNT(ID)': 1}, {'PROCESS_DATE': '2020-03-19', 'COUNT(ID)': 2}, {'PROCESS_DATE': '2020-03-20', 'COUNT(ID)': 1}, {'PROCESS_DATE': '2020-03-21', 'COUNT(ID)': 1}]
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 24, 2021 - 20:43:27
+Django version 3.1.5, using settings 'hospital_app.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 24, 2021 - 20:54:00
+Django version 3.1.5, using settings 'hospital_app.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+January 24, 2021 - 20:55:00
+Django version 3.1.5, using settings 'hospital_app.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.

@@ -263,7 +263,7 @@ def salary(request):
         if request.session['doctor_login']:
             cur.execute("""select * from Doctor where id = :num""", {'num': request.session['ID']})
         else:
-            cur.execute("""select * from Doctor""" )
+            cur.execute("""select * from Doctor""")
         temp = cur.fetchall()
         context = {
             'abc': temp,
@@ -534,8 +534,8 @@ def results(request):
     If user is a patient, user can only observe his/her results.
     Else, user can see all visit processes results.
     Query Explanation:
-    Select all each diagnosis for youngest female patients.
     :param request:
+    This query connect all tables in the database and show the results of each visit processes with patient, doctor, visit, diagnosis and service information.
     :return:
     """
     if is_logged_in(request):
@@ -602,8 +602,6 @@ def stats(request):
     3. Count doctors for each title in doctor table.
     4. Count visit processes for each diagnosis in visit process table.
     5. Count visit processes for each date in visit process table.
-    Query Explanation:
-    Select all each diagnosis for youngest female patients.
     :param request:
     :return:
     """
