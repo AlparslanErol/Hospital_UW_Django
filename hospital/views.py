@@ -104,7 +104,7 @@ def doctor(request):
         return render(request, 'users/login.html', context)
 
 
-@adm_login
+@adm_doc_login
 def patient(request):
     if is_logged_in(request):
         con = sqlite3.connect("Hospital.db")
@@ -188,36 +188,6 @@ def salary(request):
         }
         con.close()
         return render(request, 'hospital/salary.html', context)
-    else:
-        context = {'msg': 'You have to log in first!'}
-        return render(request, 'users/login.html', context)
-
-
-@adm_doc_login
-def adv_1(request):
-    if is_logged_in(request):
-        con = sqlite3.connect("Hospital.db")
-        con.row_factory = dict_factory
-        cur = con.cursor()
-        cur.execute("""SELECT D.TITLE,
-                           AVG(D.SALARY) AVERAGE_SALARY
-                      FROM PATIENT P,
-                           VISIT V,
-                           DOCTOR D,
-                           VISIT_PROCESS VP,
-                           DIAGNOSIS DI
-                     WHERE V.DOCTOR_ID = D.ID AND 
-                           V.PATIENT_ID = P.ID AND 
-                           VP.VISIT_ID = V.ID AND 
-                           VP.DIAGNOSIS_ID = DI.ID AND 
-                           DI.NAME IN ('CANCER') 
-                     GROUP BY D.TITLE
-                        HAVING COUNT(VP.ID) >= 2;""")
-        temp = cur.fetchall()
-        context = {
-            'abc': temp
-        }
-        return render(request, 'hospital/adv_1_view.html', context)
     else:
         context = {'msg': 'You have to log in first!'}
         return render(request, 'users/login.html', context)
