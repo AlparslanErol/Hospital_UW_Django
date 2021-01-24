@@ -80,7 +80,7 @@ def diagnosis(request):
             'abc': temp
         }
         con.close()
-        return render(request, 'hospital/view.html', context)
+        return render(request, 'hospital/diagnosis_view.html', context)
     else:
         context = {'msg': 'You have to log in first!'}
         return render(request, 'users/login.html', context)
@@ -132,7 +132,7 @@ def service(request):
         context = {
             'abc': temp
         }
-        return render(request, 'hospital/view.html', context)
+        return render(request, 'hospital/service.html', context)
     else:
         context = {'msg': 'You have to log in first!'}
         return render(request, 'users/login.html', context)
@@ -166,7 +166,28 @@ def visit_process(request):
         context = {
             'abc': temp
         }
-        return render(request, 'hospital/view.html', context)
+        return render(request, 'hospital/visit_process.html', context)
+    else:
+        context = {'msg': 'You have to log in first!'}
+        return render(request, 'users/login.html', context)
+
+
+@adm_doc_login
+def salary(request):
+    if is_logged_in(request):
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        if request.session['doctor_login']:
+            cur.execute("""select * from Doctor where id = :num""", {'num': request.session['ID']})
+        else:
+            cur.execute("""select * from Doctor""" )
+        temp = cur.fetchall()
+        context = {
+            'abc': temp,
+        }
+        con.close()
+        return render(request, 'hospital/salary.html', context)
     else:
         context = {'msg': 'You have to log in first!'}
         return render(request, 'users/login.html', context)
@@ -767,3 +788,35 @@ def update_visit_process(request):
     else:
         context = {'msg': 'You can update only your patients statements!'}
         return render(request, 'hospital/update_visit_process.html', context)
+
+
+@adm_login
+def update_salary(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""update doctor set salary  = :salary where id = :num""",
+                    {'salary': request.POST['SALARY'], 'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/update_salary.html')
+
+
+@adm_login
+def update_service(request):
+    if request.method == 'POST':
+        con = sqlite3.connect("Hospital.db")
+        con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute("""update service set unit_price  = :price where id = :num""",
+                    {'price': request.POST['UNIT_PRICE'], 'num': request.POST['ID']})
+        con.commit()
+        cur.close()
+
+        return render(request, 'hospital/home.html')
+    else:
+        return render(request, 'hospital/update_service.html')

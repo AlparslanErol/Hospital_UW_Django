@@ -1,0 +1,21 @@
+{% extends 'hospital/base.html' %}
+{% block content %}
+    {% for post in abc %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.ID }}</a>
+              <small class="text-muted"> Quantity : {{ post.QUANTITY }}</small>
+            </div>
+            <h2><a class="article-title" href="#"> Medical Test:{{ post.NAME }}</a></h2>
+            <h2><a class="article-title" href="#"> Price:{{ post.UNIT_PRICE }}</a></h2>
+
+
+
+
+
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
+price: {{ post.UNIT_PRICE }}
