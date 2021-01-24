@@ -29,9 +29,6 @@ def register(request):
             if int(member.usernumber) == user['ID'] and member.name == user['NAME'] and member.surname == user['SURNAME']:
                 member.save()
                 break
-            elif not(int(member.usernumber) == user['ID'] and member.name == user['NAME']
-                     and member.surname == user['SURNAME']) and user != temp[-1]:
-                continue
             else:
                 print('\n!!!!!! Wrong registration attempt from {} {} !!!!!!\n'.format(user['NAME'], user['SURNAME']))
                 context = {'msg': 'Your information and usernumber do not matched!'}

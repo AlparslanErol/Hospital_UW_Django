@@ -36,7 +36,7 @@
               <a class="nav-item nav-link" href="{% url 'hospital-v-process' %}">Visit Process</a>
               <a class="nav-item nav-link" href="{% url 'hospital-diagnosis' %}">Diagnosis</a>
               <a class="nav-item nav-link" href="{% url 'hospital-service' %}">Service</a>
-              <a class="nav-item nav-link" href="{% url 'hospital-results' %}">Results & Services & Prices</a>
+              <a class="nav-item nav-link" href="{% url 'hospital-salary' %}">Salary</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
@@ -74,9 +74,10 @@
                 <a class="nav-item nav-link" href="{% url 'hospital-doctor-update' %}">Doctor Off Day Update</a>
                 <a class="nav-item nav-link" href="{% url 'hospital-patient-update' %}">Patient Phone Update </a>
                 <a class="nav-item nav-link" href="{% url 'hospital-visit' %}">Visit</a>
-                <a class="nav-item nav-link" href="{% url 'hospital-v-process-update' %}">Visit Process Update</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-v-process' %}">Visit Process</a>
                 <a class="nav-item nav-link" href="{% url 'hospital-diagnosis' %}">Diagnosis</a>
-                <a class="nav-item nav-link" href="{% url 'hospital-service' %}">Service</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-service-update' %}">Service price update</a>
+                <a class="nav-item nav-link" href="{% url 'hospital-salary-update' %}">Salary update</a>
               </ul>
             </p>
           </div>
@@ -90,19 +91,6 @@
                 <a class="nav-item nav-link" href="{% url 'hospital-visit-delete-process' %}">Visit Process delete</a>
                 <a class="nav-item nav-link" href="{% url 'hospital-diagnosis-delete' %}">Diagnosis delete</a>
                 <a class="nav-item nav-link" href="{% url 'hospital-service-delete' %}">Service delete</a>
-              </ul>
-            </p>
-          </div>
-          <div class="content-section">
-            <h3>Useful Links</h3>
-            <p class='text-muted'>You can reach useful links about hospital.
-              <ul class="list-group">
-                <a class="nav-item nav-link" href="{% url 'hospital-adv-1' %}">Select average salary for every doctor title with count of visit process diagnosis is cancer greater than 2.</a>
-                <a class="nav-item nav-link" href="{% url 'hospital-adv-2' %}">Select doctors who have maximum salary in each title and show them with additional column and put '*' sign, otherwise ' '</a>
-                <a class="nav-item nav-link" href="{% url 'hospital-adv-3' %}">Select patients whose names are not include ‘e’ or select patients who have visit type as 'inpatient' or select male patients who have and have doctor with salary greater than 5000.</a>
-                <a class="nav-item nav-link" href="{% url 'hospital-adv-4' %}">Select total service cost in March 2020. </a>
-                <a class="nav-item nav-link" href="{% url 'hospital-adv-5' %}">Select visit processes and information about patients who use service unit price greater than 100 with yearly income of their doctors who has professor title.</a>
-                <a class="nav-item nav-link" href="{% url 'hospital-adv-6' %}">Select all each diagnosis for youngest female patients.</a>
               </ul>
             </p>
           </div>
