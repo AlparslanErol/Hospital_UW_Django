@@ -54,8 +54,8 @@ his/her salary not the others.
 - ``Results`` button accessible for all accounts but, if user is a `patient` he/she can only access to 
 his/her result not the others.
 
-## Simulation
+## Demo Frame of Hospital UW
 ![screen_shot](hospital/static/picture/web.PNG)
 
 ## Contributors
-![contributors](hospital/static/picture/contributor.PNG)
+![contributors](hospital/static/picture/contributor.png)
