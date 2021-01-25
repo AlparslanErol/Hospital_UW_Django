@@ -615,6 +615,7 @@ def stats(request):
                         from patient
                         group by gender;""")
         temp = cur.fetchall()
+        print(temp)
         new_dict = {}
         for stat in temp:
             new_dict[stat['GENDER']] = stat['count(id)']
@@ -631,6 +632,7 @@ def stats(request):
                         from doctor
                         group by department;""")
         temp = cur.fetchall()
+        print(temp)
         new_dict = {}
         for stat in temp:
             new_dict[stat['DEPARTMENT']] = stat['count(id)']
@@ -647,6 +649,7 @@ def stats(request):
                         from doctor
                         group by title;""")
         temp = cur.fetchall()
+        print(temp)
         new_dict = {}
         for stat in temp:
             new_dict[stat['TITLE']] = stat['count(id)']
@@ -669,7 +672,7 @@ def stats(request):
         for stat in temp:
             new_dict[stat['NAME']] = stat['COUNT(VP.ID)']
         # Pie chart, where the slices will be ordered and plotted counter-clockwise:
-        explode = (0, 0.1, 0, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+        explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
         fig1, ax1 = plt.subplots()
         ax1.pie(new_dict.values(), explode=explode, labels=new_dict.keys(), autopct='%1.1f%%',
                 shadow=True, startangle=90)
