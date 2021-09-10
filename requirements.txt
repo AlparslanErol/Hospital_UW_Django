@@ -44,7 +44,7 @@ requests==2.25.0
 scipy==1.5.4
 six==1.15.0
 soupsieve==2.1
-sqlparse==0.4.1
+sqlparse==0.4.2
 statsmodels==0.12.1
 style==1.1.0
 sympy==1.6.2
